@@ -1,0 +1,97 @@
+---
+title: "eds221-day4-task"
+format: html
+editor: visual
+---
+
+## Part 1
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+#Store sequence
+
+weekdays <- c("Monday", "Tuesday", "Wedsnesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+transects <- c("Transect A", "Transect B", "Transect C")
+```
+
+```{r}
+week_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+for(i in seq_along(weekdays)) {
+  for( j in seq_along(transects)) {
+    strat <- paste(weekdays[i], "-", transects[j])
+    week_matrix[i, j] <- strat
+  }
+}
+```
+
+Part 2
+
+```{r}
+# Task 2
+force <- function(m,a) {
+  tackle <- m * a
+  print(paste("The resulting force is", tackle, "Newtons"))
+}
+
+force(m = 3, a = 5)
+```
+
+```{r}
+#Task 3
+sci_name <- c("Chanos chanos", "Sphyraena barracuda", "Caranx ignobolis")
+
+common_name <- c("Milkfish", "Great Barracuda", "Giant trevally")
+
+a_est <- c(0.0905, 0.0181, 0.0353)
+
+b_est <- c(2.52, 3.27, 3.05)
+
+fish_parms <- data.frame(sci_name, common_name, a_est, b_est)
+
+fish_weight <- function(fish_name, tot_length) {
+  weight_sub <- filter(fish_parms, common_name == fish_name)
+  weight_sub$a_est * (tot_length ^ weight_sub$b_est)
+}
+
+fish_weight(fish_name = "Milkfish", tot_length = 5)
+
+#Create a vector
+vec_1 <- seq(from = 0, to = 100, by = 1)
+
+fish_weight(fish_name = "Milkfish", tot_length = vec_1)
+```
+
+```{r}
+#Task 4
+
+wave_height <- seq(from = 0, to = 3, by = 0.2)
+
+wave_power <- function(period, height) {
+  0.5 * (height ^ 2) * period
+}
+
+wave_power(period = 8, height = wave_height)
+  
+  
+```
+
+```{r}
+#Task 5
+
+calculate_wavepower <- function(water_depth, waveH, periodT) {
+  if(water_depth > 12)
+    message("The deep water equation will be used")
+{}
+  if(water_depth <= 12) {
+    message("The shallow water equation will be used")
+  }
+    0.81 * (waveH ^ 2) * periodT 
+}
+
+calculate_wavepower( water_depth = 5, waveH = 4, periodT = 3)
+```
